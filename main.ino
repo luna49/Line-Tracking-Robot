@@ -23,19 +23,12 @@ void setup() {
   // put your setup code here, to run once:
   AFMS.begin();
 
-  Serial.begin(9600);
+  // Serial.begin(9600);
 
   lightSensor.begin(BH1750_TO_GROUND);
 
   pinMode(IR_PIN_1, INPUT);
   pinMode(IR_PIN_2, INPUT);
-
-  /*
-  pinMode(MOTOR_A, OUTPUT);
-  pinMode(MOTOR_B, OUTPUT);
-  pinMode(MOTOR_C, OUTPUT);
-  pinMode(MOTOR_D, OUTPUT);
-  */
 
   MOTOR_A->setSpeed(0);
   MOTOR_A->run(RELEASE);
@@ -80,21 +73,20 @@ void loop() {
   else if (SEN_1 == 1 && SEN_2 == 1 && light == 1) {
     stop();
   }
-  //delay(100);
-  
+
 }
 
 void moveForward(){
-  MOTOR_A->setSpeed(255);
+  MOTOR_A->setSpeed(220);
   MOTOR_A->run(BACKWARD);
 
-  MOTOR_B->setSpeed(255);
+  MOTOR_B->setSpeed(220);
   MOTOR_B->run(BACKWARD);
 
-  MOTOR_C->setSpeed(255);
+  MOTOR_C->setSpeed(220);
   MOTOR_C->run(BACKWARD);
 
-  MOTOR_D->setSpeed(255);
+  MOTOR_D->setSpeed(220);
   MOTOR_D->run(BACKWARD);
 
 }
@@ -111,44 +103,69 @@ void stop() {
 }
 
 void rotateMotorsClockwise() {
-  // Rotate all motors clockwise
-
-  /*
-  digitalWrite(MOTOR_A, HIGH);
-  digitalWrite(MOTOR_B, HIGH);
-  digitalWrite(MOTOR_C, HIGH);
-  digitalWrite(MOTOR_D, HIGH);
-  */
-
-  MOTOR_A->setSpeed(100);
-  MOTOR_D->setSpeed(100);
+  MOTOR_A->setSpeed(10);
+  MOTOR_D->setSpeed(130);
   MOTOR_A->run(FORWARD);
   MOTOR_D->run(FORWARD);
 
   MOTOR_B->setSpeed(100);
-  MOTOR_C->setSpeed(100);
+  MOTOR_C->setSpeed(180);
   MOTOR_B->run(BACKWARD);
   MOTOR_C->run(BACKWARD);
 }
 
 void rotateMotorsCounterClockwise() {
-  // Rotate all motors counter-clockwise
-
-  /*
-  digitalWrite(MOTOR_A, LOW);
-  digitalWrite(MOTOR_B, LOW);
-  digitalWrite(MOTOR_C, LOW);
-  digitalWrite(MOTOR_D, LOW);
-  */
-
-  MOTOR_B->setSpeed(100);
-  MOTOR_C->setSpeed(100);
+  MOTOR_B->setSpeed(10);
+  MOTOR_C->setSpeed(130);
   MOTOR_B->run(FORWARD);
   MOTOR_C->run(FORWARD);
 
   MOTOR_A->setSpeed(100);
-  MOTOR_D->setSpeed(100);
+  MOTOR_D->setSpeed(180);
   MOTOR_A->run(BACKWARD);
   MOTOR_D->run(BACKWARD);
 }
+//   if (light == 1) {
+//     if (SEN_1 == 0 && SEN_2 == 0) {
+//       moveMotors(-220);
+//     } else if (SEN_1 == 0 && SEN_2 == 1) {
+//       rotateMotors(10, 130, -100, -180);
+//     } else if (SEN_1 == 1 && SEN_2 == 0) {
+//       rotateMotors(-10, -130, 100, 180);
+//     } else if (SEN_1 == 1 && SEN_2 == 1) {
+//       stop();
+//     }
+//   }
+// }
 
+// void moveMotors(int speed) {
+//   MOTOR_A->setSpeed(speed);
+//   MOTOR_B->setSpeed(speed);
+//   MOTOR_C->setSpeed(speed);
+//   MOTOR_D->setSpeed(speed);
+
+//   MOTOR_A->run(BACKWARD);
+//   MOTOR_B->run(BACKWARD);
+//   MOTOR_C->run(BACKWARD);
+//   MOTOR_D->run(BACKWARD);
+// }
+
+// void stop() {
+//   moveMotors(0);
+//   MOTOR_A->run(FORWARD);
+//   MOTOR_B->run(FORWARD);
+//   MOTOR_C->run(FORWARD);
+//   MOTOR_D->run(FORWARD);
+// }
+
+// void rotateMotors(int speedA, int speedD, int speedB, int speedC) {
+//   MOTOR_A->setSpeed(speedA);
+//   MOTOR_D->setSpeed(speedD);
+//   MOTOR_A->run(FORWARD);
+//   MOTOR_D->run(FORWARD);
+
+//   MOTOR_B->setSpeed(speedB);
+//   MOTOR_C->setSpeed(speedC);
+//   MOTOR_B->run(FORWARD);
+//   MOTOR_C->run(FORWARD);
+// }
