@@ -58,114 +58,47 @@ void loop() {
     light = 1;
   }
 
-  if (SEN_1 == 0 && SEN_2 == 0 && light == 1) {
-    moveForward();
+  if (light == 1) {
+    if (SEN_1 == 0 && SEN_2 == 0) {
+      moveMotors(220);
+    } else if (SEN_1 == 0 && SEN_2 == 1) {
+      rotateMotors(10, 130, -100, -180);
+    } else if (SEN_1 == 1 && SEN_2 == 0) {
+      rotateMotors(-100, -180, 10, 130);
+    } else if (SEN_1 == 1 && SEN_2 == 1) {
+      stop();
+    }
   }
-
-  else if (SEN_1 == 0 && SEN_2 == 1 && light == 1) {
-    //Serial.println("Black detected");
-    rotateMotorsClockwise();
-  }
-  else if (SEN_1 == 1 && SEN_2 == 0 && light == 1) {
-    //Serial.println("White detected!");
-    rotateMotorsCounterClockwise();
-  }
-  else if (SEN_1 == 1 && SEN_2 == 1 && light == 1) {
-    stop();
-  }
-
 }
 
-void moveForward(){
-  MOTOR_A->setSpeed(220);
+void moveMotors(int speed) {
+  MOTOR_A->setSpeed(speed);
+  MOTOR_B->setSpeed(speed);
+  MOTOR_C->setSpeed(speed);
+  MOTOR_D->setSpeed(speed);
+
   MOTOR_A->run(BACKWARD);
-
-  MOTOR_B->setSpeed(220);
   MOTOR_B->run(BACKWARD);
-
-  MOTOR_C->setSpeed(220);
   MOTOR_C->run(BACKWARD);
-
-  MOTOR_D->setSpeed(220);
   MOTOR_D->run(BACKWARD);
-
 }
 
 void stop() {
-  MOTOR_A->setSpeed(0);
-  MOTOR_B->setSpeed(0);
-  MOTOR_C->setSpeed(0);
-  MOTOR_D->setSpeed(0);
+  moveMotors(0);
   MOTOR_A->run(FORWARD);
   MOTOR_B->run(FORWARD);
   MOTOR_C->run(FORWARD);
   MOTOR_D->run(FORWARD);
 }
 
-void rotateMotorsClockwise() {
-  MOTOR_A->setSpeed(10);
-  MOTOR_D->setSpeed(130);
+void rotateMotors(int speedA, int speedD, int speedB, int speedC) {
+  MOTOR_A->setSpeed(speedA);
+  MOTOR_D->setSpeed(speedD);
   MOTOR_A->run(FORWARD);
   MOTOR_D->run(FORWARD);
 
-  MOTOR_B->setSpeed(100);
-  MOTOR_C->setSpeed(180);
-  MOTOR_B->run(BACKWARD);
-  MOTOR_C->run(BACKWARD);
-}
-
-void rotateMotorsCounterClockwise() {
-  MOTOR_B->setSpeed(10);
-  MOTOR_C->setSpeed(130);
+  MOTOR_B->setSpeed(speedB);
+  MOTOR_C->setSpeed(speedC);
   MOTOR_B->run(FORWARD);
   MOTOR_C->run(FORWARD);
-
-  MOTOR_A->setSpeed(100);
-  MOTOR_D->setSpeed(180);
-  MOTOR_A->run(BACKWARD);
-  MOTOR_D->run(BACKWARD);
 }
-//   if (light == 1) {
-//     if (SEN_1 == 0 && SEN_2 == 0) {
-//       moveMotors(-220);
-//     } else if (SEN_1 == 0 && SEN_2 == 1) {
-//       rotateMotors(10, 130, -100, -180);
-//     } else if (SEN_1 == 1 && SEN_2 == 0) {
-//       rotateMotors(-10, -130, 100, 180);
-//     } else if (SEN_1 == 1 && SEN_2 == 1) {
-//       stop();
-//     }
-//   }
-// }
-
-// void moveMotors(int speed) {
-//   MOTOR_A->setSpeed(speed);
-//   MOTOR_B->setSpeed(speed);
-//   MOTOR_C->setSpeed(speed);
-//   MOTOR_D->setSpeed(speed);
-
-//   MOTOR_A->run(BACKWARD);
-//   MOTOR_B->run(BACKWARD);
-//   MOTOR_C->run(BACKWARD);
-//   MOTOR_D->run(BACKWARD);
-// }
-
-// void stop() {
-//   moveMotors(0);
-//   MOTOR_A->run(FORWARD);
-//   MOTOR_B->run(FORWARD);
-//   MOTOR_C->run(FORWARD);
-//   MOTOR_D->run(FORWARD);
-// }
-
-// void rotateMotors(int speedA, int speedD, int speedB, int speedC) {
-//   MOTOR_A->setSpeed(speedA);
-//   MOTOR_D->setSpeed(speedD);
-//   MOTOR_A->run(FORWARD);
-//   MOTOR_D->run(FORWARD);
-
-//   MOTOR_B->setSpeed(speedB);
-//   MOTOR_C->setSpeed(speedC);
-//   MOTOR_B->run(FORWARD);
-//   MOTOR_C->run(FORWARD);
-// }
